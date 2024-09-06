@@ -13,10 +13,10 @@ using namespace std;
     struct Node 
     {
     //doubly linked implementation
-    Node* next;
-    Node* prev;
-    int treeNum;
-    int blockNum;
+    Node* next = nullptr;
+    Node* prev = nullptr;
+    int treeNum = 0;
+    int blockNum = 0;
     string streetName;
     };
 
@@ -32,9 +32,9 @@ public:
     Node* head;
     Node* tail;
 
-    void append_node(Node& newNode);
+    void append_node(Node newNode);
 
-    void insert_node(Node& newNode, int position);
+    void insert_node(Node newNode, int position);
 
     void delete_node(const int& block);
 

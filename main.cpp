@@ -22,12 +22,12 @@ int main()
     Node Street4;
     Street4.blockNum = 2;
     Street4.streetName = "Sharp";
-    Street4.treeNum = 10;
+    Street4.treeNum = 6;
 
     List.append_node(Street1);
     List.append_node(Street2);
     List.append_node(Street3);
-    List.append_node(Street4);
+    List.insert_node(Street4, 1);
 
 
     List.print_list();

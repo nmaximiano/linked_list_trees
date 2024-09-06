@@ -20,7 +20,7 @@
         }
     }
 
-    void LinkedList::append_node(Node& newNode)
+    void LinkedList::append_node(Node newNode)
     {
         Node* newPtr = new Node(newNode);
 
@@ -40,7 +40,7 @@
         
     }
 
-    void LinkedList::insert_node(Node& newNode, int position)
+    void LinkedList::insert_node(Node newNode, int position)
     {
         Node* newPtr = new Node(newNode);
 
@@ -136,6 +136,7 @@
             cout << "There are " << NodePtr->treeNum << " trees on block " << NodePtr->blockNum << " of street " << NodePtr->streetName << "." << endl;
             NodePtr = NodePtr->next;
         }
+        
     }
 
     int LinkedList::size_of_list() const
