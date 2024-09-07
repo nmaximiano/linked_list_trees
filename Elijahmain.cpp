@@ -90,7 +90,7 @@ int main()
     cout << "would you like to enter data |y/n|" << endl;
     cin >> input;
 
-    if (input = 'y') {
+    if (input == 'y') {
         List.addDataDLL(List);
         List.exportDLL("newtreeData.csv");  
     } else {
@@ -412,7 +412,6 @@ void LinkedList::addDataDLL(LinkedList& List){
         cin >> treeNum;
 
         List.insert(streetName, blockNum, treeNum);
-
 }
 
  void LinkedList::exportDLL(const string& filename) 
