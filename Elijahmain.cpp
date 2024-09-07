@@ -47,6 +47,8 @@ public:
 
     Node *createNewNode(string streetName, int block, int trees);
 
+    void exportDLL(const string& filename);
+
 
 };
 
@@ -81,7 +83,7 @@ int main()
 
     cout << "You found " << List.search_list(3)->streetName << " street" << endl;
 
-
+     List.exportDLL("newtreeData.csv");
 }
     //constructor
     LinkedList::LinkedList()
@@ -367,4 +369,20 @@ bool openStreetData(ifstream &infile, string filename)
         return true;
     }
     return false;
+}
+
+ void LinkedList::exportDLL(const string& filename) 
+ {
+    ofstream outFile(filename);
+
+    Node* nodePtr = head;
+    while (nodePtr != nullptr) {
+        outFile << nodePtr->streetName << ","
+                << nodePtr->blockNum << ","
+                << nodePtr->treeNum << endl;
+        nodePtr = nodePtr->next;
+    }
+
+    outFile.close();
+    cout << "Data exported to " << filename << endl;
 }
