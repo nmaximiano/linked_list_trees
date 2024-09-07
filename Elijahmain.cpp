@@ -49,7 +49,9 @@ public:
 
     void exportDLL(const string& filename);
 
+    void addDataDLL(LinkedList& List);
 
+    void insert(string streetName, int blockNum, int treeNum);
 };
 
 bool openStreetData(ifstream &infile, string filename);
@@ -64,6 +66,8 @@ int main()
     int trees = 0;
     int numlines = 0;
     bool infileIsOpen = false;
+
+    char input;
 
     infileIsOpen = openStreetData(infile, "treeData.csv");
 
@@ -83,8 +87,16 @@ int main()
 
     cout << "You found " << List.search_list(3)->streetName << " street" << endl;
 
-     List.exportDLL("newtreeData.csv");
-}
+    cout << "would you like to enter data |y/n|" << endl;
+    cin >> input;
+
+    if (input = 'y') {
+        List.addDataDLL(List);
+        List.exportDLL("newtreeData.csv");  
+    } else {
+        return 0;
+    }
+};
     //constructor
     LinkedList::LinkedList()
     {
@@ -135,7 +147,6 @@ int main()
 	* adds node to linked list in specified position */
     void LinkedList::insert_node(Node *newNode, int position)
     {
-
         if(position == 0)
         {
             if (head == nullptr)
@@ -369,6 +380,39 @@ bool openStreetData(ifstream &infile, string filename)
         return true;
     }
     return false;
+}
+
+    void LinkedList::insert(string streetName, int blockNum, int treeNum) {
+        Node* newNode= new Node();
+        newNode->streetName = streetName;
+        newNode->blockNum = blockNum;
+        newNode->treeNum = treeNum;
+        if (!head) {
+            head = newNode;
+        } else {
+            Node* temp = head;
+            while (temp->next) {
+                temp = temp->next;
+            }
+            temp->next = newNode;
+            newNode->prev = temp;
+        }
+    }
+
+void LinkedList::addDataDLL(LinkedList& List){
+    string streetName; int blockNum, treeNum;
+
+    cout << "Enter the street name: ";
+        cin >> streetName;
+
+        cout << "Enter the block number: ";
+        cin >> blockNum;
+
+        cout << "Enter the number of trees: ";
+        cin >> treeNum;
+
+        List.insert(streetName, blockNum, treeNum);
+
 }
 
  void LinkedList::exportDLL(const string& filename) 
