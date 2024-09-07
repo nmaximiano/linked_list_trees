@@ -15,12 +15,12 @@ int main()
     Street2.treeNum = 10;
 
     Node Street3;
-    Street3.blockNum = 2;
+    Street3.blockNum = 3;
     Street3.streetName = "Sharp";
     Street3.treeNum = 10;
 
     Node Street4;
-    Street4.blockNum = 2;
+    Street4.blockNum = 4;
     Street4.streetName = "Sharp";
     Street4.treeNum = 6;
 
@@ -31,5 +31,12 @@ int main()
 
 
     List.print_list();
+
+    List.delete_node(4); //specify which block number to delete
+
+    List.print_list();
+
+    cout << "You found " << List.search_list(3)->streetName << " street" << endl;
+
 
 }

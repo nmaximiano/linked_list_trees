@@ -20,6 +20,11 @@
         }
     }
 
+
+/* append_node
+ *Date created: 9/6/2024
+ *Date last edited: 9/6/2024
+	* adds existing node to the end of the linked list. */
     void LinkedList::append_node(Node newNode)
     {
         Node* newPtr = new Node(newNode);
@@ -40,6 +45,10 @@
         
     }
 
+/* insert_node
+ *Date created: 9/6/2024
+ *Date last edited: 9/6/2024
+	* adds node to linked list in specified position */
     void LinkedList::insert_node(Node newNode, int position)
     {
         Node* newPtr = new Node(newNode);
@@ -59,13 +68,12 @@
         }
 
         Node* NodePtr = head;
-        
-        while(NodePtr != nullptr)
+        int i = 0;
+        while(NodePtr != nullptr && i < position - 1)
         {
-            for(int i = 0; i < position - 1; i++)
-            {
-                NodePtr = NodePtr->next;
-            }
+            NodePtr = NodePtr->next;
+            i++;
+        
         }
 
         if(NodePtr == nullptr)
@@ -87,6 +95,10 @@
         }
     }
 
+/* delete_node
+ *Date created: 9/6/2024
+ *Date last edited: 9/6/2024
+	* deletes specified node */
     void LinkedList::delete_node(const int& block)
     {
         Node* NodePtr = head;
@@ -128,6 +140,10 @@
         cout << "Node does not exist" << endl;
     }
 
+/* print_list
+ *Date created: 9/6/2024
+ *Date last edited: 9/6/2024
+	* writes contents of linked list to console */
     void LinkedList::print_list() const
     {
         Node* NodePtr = head;
@@ -139,6 +155,10 @@
         
     }
 
+/* size_of_list
+ *Date created: 9/6/2024
+ *Date last edited: 9/6/2024
+	* returns the size of the list */
     int LinkedList::size_of_list() const
     {
         int size = 0;
@@ -151,6 +171,10 @@
         return size;
     }
 
+/* append_node
+ *Date created: 9/6/2024
+ *Date last edited: 9/6/2024
+	* returns specified node from list */
     Node* LinkedList::search_list(const int& block)
     {
         Node* NodePtr = head;
@@ -167,9 +191,4 @@
         return nullptr;
     }
 
-void getdatafromCSV(vector<LinkedList>& streetList, const string& filename)
-{
-    ifstream infile(filename);
 
-    
-}
