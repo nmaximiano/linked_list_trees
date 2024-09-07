@@ -17,7 +17,7 @@ struct Node
     Node* next = nullptr;
     Node* prev = nullptr;
     int treeNum = 0;
-    string blockNum;
+    int blockNum;
     string streetName;
     };
 
@@ -33,19 +33,19 @@ public:
 
     void insert_node(Node *newNode, int position);
 
-    void delete_node(const string& block);
+    void delete_node(const int& block);
 
     void print_list() const;
 
     int size_of_list() const;
 
-    Node* search_list(const string& block);
+    Node* search_list(const int& block);
 
     bool streetInList(string name);
 
     void parseFile(ifstream &infile, string &transfer, string &street, stringstream &allData, string &block, int&trees, int &numlines, LinkedList &Street);
 
-    Node *createNewNode(string streetName, string block, int trees);
+    Node *createNewNode(string streetName, int block, int trees);
 
 
 };
@@ -79,7 +79,7 @@ int main()
     List.print_list();
 
 
-    cout << "You found " << List.search_list("3")->streetName << " street" << endl;
+    cout << "You found " << List.search_list(3)->streetName << " street" << endl;
 
 
 }
@@ -180,7 +180,7 @@ int main()
  *Date created: 9/6/2024
  *Date last edited: 9/6/2024
 	* deletes specified node */
-    void LinkedList::delete_node(const string& block)
+    void LinkedList::delete_node(const int& block)
     {
         Node* NodePtr = head;
 
@@ -256,7 +256,7 @@ int main()
  *Date created: 9/6/2024
  *Date last edited: 9/6/2024
 	* returns specified node from list */
-    LinkedList::Node* LinkedList::search_list(const string& block)
+    LinkedList::Node* LinkedList::search_list(const int& block)
     {
         Node* NodePtr = head;
 
@@ -277,7 +277,7 @@ int main()
 
 
 //making parse file
-LinkedList::Node *LinkedList::createNewNode(string streetName, string block, int trees)
+LinkedList::Node *LinkedList::createNewNode(string streetName, int block, int trees)
 {
     Node* newNode = new Node;
     newNode->streetName = streetName;
@@ -316,7 +316,7 @@ void LinkedList::parseFile(ifstream &infile, string &transfer, string &street, s
 {
     Node* nodePtr= nullptr;
     string streetName = "";
-    string blockNum = "";
+    int blockNum = 0;
     int numTrees = 0;
 
     while(!infile.eof())
@@ -338,7 +338,8 @@ void LinkedList::parseFile(ifstream &infile, string &transfer, string &street, s
                 else if (i == 1)
                 {
                     getline(allData, block, ',');
-                        blockNum = block;   //block number is in the second column
+
+                        blockNum = stoi(block);   //block number is in the second column
                 }
                 else if(i==2)
                 {
@@ -346,7 +347,7 @@ void LinkedList::parseFile(ifstream &infile, string &transfer, string &street, s
                     numTrees = trees;
                 }
             }
-            Street.append_node(Street.createNewNode(streetName, block, trees));
+            Street.append_node(Street.createNewNode(streetName, blockNum, numTrees));
             cout << "Processed a street..." << endl;
         }
 
