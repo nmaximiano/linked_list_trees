@@ -41,15 +41,11 @@ public:
 
     Node* search_list(const int& block);
 
-    bool streetInList(string name);
-
     void parseFile(ifstream &infile, string &transfer, string &street, stringstream &allData, string &block, int&trees, int &numlines, LinkedList &Street);
 
     Node *createNewNode(string streetName, int block, int trees);
 
-    void exportDLL(const string& filename);
 
-    void addDataAndInsert();
 };
 
 bool openStreetData(ifstream &infile, string filename);
@@ -64,8 +60,6 @@ int main()
     int trees = 0;
     int numlines = 0;
     bool infileIsOpen = false;
-
-    char input;
 
     infileIsOpen = openStreetData(infile, "treeData.csv");
 
@@ -85,16 +79,8 @@ int main()
 
     cout << "You found " << List.search_list(3)->streetName << " street" << endl;
 
-    cout << "would you like to enter data |y/n|" << endl;
-    cin >> input;
 
-    if (input == 'y') {
-        List.addDataAndInsert();
-        List.exportDLL("newtreeData.csv");  
-    } else {
-        return 0;
-    }
-};
+}
     //constructor
     LinkedList::LinkedList()
     {
@@ -145,6 +131,7 @@ int main()
 	* adds node to linked list in specified position */
     void LinkedList::insert_node(Node *newNode, int position)
     {
+
         if(position == 0)
         {
             if (head == nullptr)
@@ -288,6 +275,11 @@ int main()
 
 
 //making parse file
+
+/* createNewNode
+ *Date created: 9/6/2024
+ *Date last edited: 9/6/2024
+	* creates a new node with the street name, block number, and number of trees on the block. */
 LinkedList::Node *LinkedList::createNewNode(string streetName, int block, int trees)
 {
     Node* newNode = new Node;
@@ -298,31 +290,11 @@ LinkedList::Node *LinkedList::createNewNode(string streetName, int block, int tr
     return newNode;
 }
 
-bool LinkedList::streetInList(string name)
-{
-    Node* nodePtr = head;
 
-    while(nodePtr != nullptr)
-    {
-        if(nodePtr->streetName == name) //found street name return true
-        {
-            return true; 
-        }
-
-        if(nodePtr->next == nullptr) //return false if next ptr is nullptr becasue street name not found
-        {
-            return false;
-        }
-        nodePtr = nodePtr->next;
-    }
-    return false; 
-
-}
-
-
-
-
-
+/* parse file
+ *Date created: 9/6/2024
+ *Date last edited: 9/6/2024
+	* parses through treeData.csv file to create a new node containing the street name, block number, and number of trees on the block */
 void LinkedList::parseFile(ifstream &infile, string &transfer, string &street, stringstream &allData, string &block, int&trees, int &numlines, LinkedList &Street)
 {
     Node* nodePtr= nullptr;
@@ -344,7 +316,7 @@ void LinkedList::parseFile(ifstream &infile, string &transfer, string &street, s
                 {
                     
                     getline(allData, street, ',');
-                        streetName = street;
+                        streetName = street;     //street name is in the first column         
                 }
                 else if (i == 1)
                 {
@@ -358,8 +330,8 @@ void LinkedList::parseFile(ifstream &infile, string &transfer, string &street, s
                     numTrees = trees;
                 }
             }
-            Street.append_node(Street.createNewNode(streetName, blockNum, numTrees));
-            cout << "Processed a street..." << endl;
+            Street.append_node(Street.createNewNode(streetName, blockNum, numTrees)); //create a new node containing all data in that row
+            cout << "Processed a street..." << endl;    
         }
 
         numlines++;
@@ -370,59 +342,16 @@ void LinkedList::parseFile(ifstream &infile, string &transfer, string &street, s
 
 }
 
+/* parse file
+ *Date created: 9/6/2024
+ *Date last edited: 9/6/2024
+	* opens the file that has data containing the tree information */
 bool openStreetData(ifstream &infile, string filename)
 {
     infile.open(filename);
     if (infile.is_open())
     {
         return true;
-    }   
+    }
     return false;
-}
-
-void LinkedList::addDataAndInsert() {
-    string streetName;
-
-    int blockNum, treeNum;
-
-    cout << "Enter the street name: ";
-    cin >> streetName;
-
-    cout << "Enter the block number: ";
-    cin >> blockNum;
-
-    cout << "Enter the number of trees: ";
-    cin >> treeNum;
-
-    Node* newNode = new Node();
-    newNode->streetName = streetName;
-    newNode->blockNum = blockNum;
-    newNode->treeNum = treeNum;
-
-    if (!head) {
-        head = newNode;
-    } else {
-        Node* temp = head;
-        while (temp->next) {
-            temp = temp->next;
-        }
-        temp->next = newNode;
-        newNode->prev = temp;
-    }
-}
-
- void LinkedList::exportDLL(const string& filename) 
- {
-    ofstream outFile(filename);
-
-    Node* nodePtr = head;
-    while (nodePtr != nullptr) {
-        outFile << nodePtr->streetName << ","
-                << nodePtr->blockNum << ","
-                << nodePtr->treeNum << endl;
-        nodePtr = nodePtr->next;
-    }
-
-    outFile.close();
-    cout << "Data exported to " << filename << endl;
 }
