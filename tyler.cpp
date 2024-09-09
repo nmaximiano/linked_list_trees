@@ -33,7 +33,7 @@ public:
 
     void insert_node(Node *newNode, int position);
 
-    void delete_node(const int& block);
+    void delete_node(const string street, const int& block);
 
     void print_list() const;
 
@@ -191,13 +191,13 @@ int main()
  *Date created: 9/6/2024
  *Date last edited: 9/6/2024
 	* deletes specified node */
-    void LinkedList::delete_node(const int& block)
+    void LinkedList::delete_node(const string street, const int& block)
     {
         Node* NodePtr = head;
 
         while(NodePtr != nullptr)
         {
-            if(NodePtr->blockNum == block)
+            if(NodePtr->streetName == street && NodePtr->blockNum == block)
             {
                 if(NodePtr == head)
                 {
