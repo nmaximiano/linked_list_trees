@@ -39,7 +39,7 @@ public:
 
     int size_of_list() const;
 
-    Node* search_list(const int& block);
+    Node* search_list(const string street, const int& block);
 
     bool streetInList(string name);
 
@@ -263,17 +263,17 @@ int main()
         return size;
     }
 
-/* append_node
+/* search_node
  *Date created: 9/6/2024
  *Date last edited: 9/6/2024
 	* returns specified node from list */
-    LinkedList::Node* LinkedList::search_list(const int& block)
+    LinkedList::Node* LinkedList::search_list(const string street, const int& block)
     {
         Node* NodePtr = head;
 
         while(NodePtr != nullptr)
         {
-            if(NodePtr->blockNum == block)
+            if(NodePtr->streetName == street && NodePtr->blockNum == block)
             {
                 return NodePtr;
             }
