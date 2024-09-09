@@ -10,15 +10,17 @@
 
 using namespace std;
 
-    struct Node 
-    {
-    //doubly linked implementation
-    Node* next = nullptr;
-    Node* prev = nullptr;
-    int treeNum = 0;
-    int blockNum = 0;
-    string streetName;
-    };
+class Node {
+    public:
+        Node();
+        Node(string streetName, int blockNum, int treeNum);
+        Node(Node& other);
+        Node* next = nullptr;
+        Node* prev = nullptr;
+        string streetName;
+        int treeNum;
+        int blockNum;
+};
 
 class LinkedList 
 {
@@ -26,15 +28,19 @@ private:
 
 public: 
     //constructor and destructor
+    string streetName;
+
     LinkedList();
+    LinkedList(std::string inpStreetName);
+    LinkedList(const LinkedList& other);
     ~LinkedList();
 
     Node* head;
     Node* tail;
 
-    void append_node(Node newNode);
+    void append_node(Node* newNode);
 
-    void insert_node(Node newNode, int position);
+    void insert_node(Node* newNode, int position);
 
     void delete_node(const int& block);
 

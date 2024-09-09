@@ -1,14 +1,61 @@
 #include "linked_list.hpp"
 
+//node constructor
+Node::Node() {
+    streetName = "";
+    treeNum = 0;
+    blockNum = 0;
+    next = nullptr;
+    prev = nullptr;
+}
+
+Node::Node(std::string streetName, int blockNum, int treeNum) {
+    this->streetName = streetName;
+    this->blockNum = blockNum;
+    this->treeNum = treeNum;
+    next = nullptr;
+    prev = nullptr;
+}
+
+Node::Node(Node& other) {
+    streetName = other.streetName;
+    treeNum = other.treeNum;
+    blockNum = other.blockNum;
+    next = other.next;
+    prev = other.prev;
+}
+
     //constructor
-    LinkedList::LinkedList()
+LinkedList::LinkedList()
     {
         head = nullptr;
         tail = nullptr;
     }  
 
+LinkedList::LinkedList(std::string inpStreetName)
+    {
+        head = nullptr;
+        tail = nullptr;
+        this->streetName = inpStreetName;
+    }
+
+    //copy constructor
+LinkedList::LinkedList(const LinkedList& other)
+    {
+        head = nullptr;
+        tail = nullptr;
+        this->streetName = other.streetName;
+        Node* NodePtr = other.head;
+        while(NodePtr != nullptr)
+        {
+            Node* newNode = new Node(NodePtr->streetName, NodePtr->blockNum, NodePtr->treeNum);
+            append_node(newNode);
+            NodePtr = NodePtr->next;
+        }
+    }
+
     //destructor
-    LinkedList::~LinkedList()
+LinkedList::~LinkedList()
     {
         Node* NodePtr = head;
 
@@ -25,22 +72,21 @@
  *Date created: 9/6/2024
  *Date last edited: 9/6/2024
 	* adds existing node to the end of the linked list. */
-    void LinkedList::append_node(Node newNode)
+    void LinkedList::append_node(Node* newNode)
     {
-        Node* newPtr = new Node(newNode);
 
         //if list is empty, add to front
         if(head == nullptr)
         {
-            head = newPtr;
-            tail = newPtr;
+            head = newNode;
+            tail = newNode;
         }
         //if list populated, add to end
         else
         {
-            tail->next = newPtr;
-            newPtr->prev = tail;
-            tail = newPtr;
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
         }
         
     }
@@ -49,21 +95,19 @@
  *Date created: 9/6/2024
  *Date last edited: 9/6/2024
 	* adds node to linked list in specified position */
-    void LinkedList::insert_node(Node newNode, int position)
-    {
-        Node* newPtr = new Node(newNode);
+    void LinkedList::insert_node(Node* newNode, int position) {
 
         if(position == 0)
         {
             if (head == nullptr)
             {
-                head = tail = newPtr;
+                head = tail = newNode;
             }
             else
             {
-                newPtr->next = head;
-                head->prev = newPtr;
-                head = newPtr;
+                newNode->next = head;
+                head->prev = newNode;
+                head = newNode;
             }
         }
 
@@ -82,16 +126,16 @@
         }
         else if(NodePtr->next == nullptr)
         {
-            tail = newPtr;
-            NodePtr->next = newPtr;
-            newPtr->prev = NodePtr;
+            tail = newNode;
+            NodePtr->next = newNode;
+            newNode->prev = NodePtr;
         }
         else
         {
-            newPtr->next = NodePtr->next;
-            newPtr->prev = NodePtr;
-            NodePtr->next->prev = newPtr;
-            NodePtr->next = newPtr;
+            newNode->next = NodePtr->next;
+            newNode->prev = NodePtr;
+            NodePtr->next->prev = newNode;
+            NodePtr->next = newNode;
         }
     }
 
